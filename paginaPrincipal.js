@@ -19,26 +19,30 @@ if (
   recados
     .filter((el) => el.idUser === idUser)
     .forEach((el) => {
-      tabela.innerHTML += `<tr>
+      modalExcluir(`${el.idRecado}`)
+      tabela.innerHTML += `<tr id="recado${el.idRecado}" >
       <th>
-          <div class="accordion" id="recado${el.idRecado}">
+          <div class="accordion" id="recados${el.idRecado}">
             <div class="accordion-item">
               <h2 class="accordion-header" id="h2${el.idRecado}">
-                <button class="accordion-button pointer" type="button" data-bs-toggle="collapse" data-bs-target="#${el.idRecado}" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                <button class="accordion-button pointer" type="button" data-bs-toggle="collapse" data-bs-target="#${el.idRecado}" aria-expanded="true" aria-controls="${el.idRecado}">
                   ${el.descricao} 
                 </button>
               </h2>
               <div id="${el.idRecado}" class="accordion-collapse collapse" aria-labelledby="h2${el.idRecado}">
                 <div class="accordion-body">
-                 <small> ${el.detalhamento} <small/>
+                  <small> ${el.detalhamento} <small/>
+                </div>
+                <hr class="mt-0 mb-0">
+                <div  class="accordion-body">
+                  <button class="btn btn-warning">Editar</button>
+                  <button onclick="" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal${el.idRecado}">Deletar</button>
                 </div>
               </div>
             </div>
           </div>
       </th>
     </tr>`;
-
-      /*`<tr id="${el.idRecado}"><th>${el.descricao}</th><td>${el.detalhamento}</td><td><button id="btnEditar" class="btns" onclick="editar('${el.idRecado}')">Editar</button><button id="btnExcluir" onclick="excluir('${el.idRecado}')" class="btns">Excluir</button></td></tr>`; */
     });
 }
 
@@ -53,22 +57,30 @@ function salvar() {
   };
   console.log(novoLembrete);
   if (descricao.value === "" || detalhamento.value === "") {
-    alert("Digite uma descrição e detalhamento antes de salvar.");
+    function popovers () {
+      ('[data-toggle="popover"]').popover()
+    }
+    popovers();
   } else if (localStorage.getItem("recados") === null) {
     lembretes.push(novoLembrete);
     localStorage.setItem("recados", JSON.stringify(lembretes));
-    tabela.innerHTML += `<tr>
+    tabela.innerHTML += `<tr id="recado${idRecado}">
     <th>
-        <div class="accordion" id="recado${idRecado}">
+        <div class="accordion">
           <div class="accordion-item">
             <h2 class="accordion-header" id="h2${idRecado}">
-              <button class="accordion-button pointer" type="button" data-bs-toggle="collapse" data-bs-target="#${idRecado}" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+              <button class="accordion-button pointer" type="button" data-bs-toggle="collapse" data-bs-target="#${idRecado}" aria-expanded="true" aria-controls="${idRecado}">
                 ${descricao.value}
               </button>
             </h2>
             <div id="${idRecado}" class="accordion-collapse collapse" aria-labelledby="h2${idRecado}">
               <div class="accordion-body">
               <small>  ${detalhamento.value} <small/>
+              </div>
+              <hr class="mt-0  mb-0">
+              <div class="accordion-body">
+              <button class="btn btn-warning ">Editar</button>
+              <button onclick="" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal${idRecado}">Deletar</button>
               </div>
             </div>
           </div>
@@ -81,19 +93,24 @@ function salvar() {
     lembretes = JSON.parse(localStorage.getItem("recados"));
     lembretes.push(novoLembrete);
     localStorage.setItem("recados", JSON.stringify(lembretes));
-    tabela.innerHTML += `<tr>
+    tabela.innerHTML += `<tr  id="recado${idRecado}">
     <th>
-        <div class="accordion" id="recado${idRecado}">
+        <div class="accordion">
           <div class="accordion-item">
             <h2 class="accordion-header" id="h2${idRecado}">
-              <button class="accordion-button pointer" type="button" data-bs-toggle="collapse" data-bs-target="#${idRecado}" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+              <button class="accordion-button pointer" type="button" data-bs-toggle="collapse" data-bs-target="#${idRecado}" aria-expanded="true" aria-controls="${idRecado}">
                 ${descricao.value}
               </button>
             </h2>
             <div id="${idRecado}" class="accordion-collapse collapse" aria-labelledby="h2${idRecado}">
-              <div class="accordion-body">
-              <small>  ${detalhamento.value} <small/>
-              </div>
+            <div class="accordion-body">
+            <small>  ${detalhamento.value} <small/>
+            </div>
+            <hr class="mt-0 mb-0">
+            <div class="accordion-body">
+            <button class="btn btn-warning">Editar</button>
+            <button onclick="" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal${idRecado}">Deletar</button>
+            </div>
             </div>
           </div>
         </div>
@@ -114,7 +131,7 @@ function sair() {
 function makeId(length) {
   let result = "";
   const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   const charactersLength = characters.length;
   for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -122,12 +139,36 @@ function makeId(length) {
   return result;
 }
 
-function excluir(idRecado) {
-  const tr = document.getElementById(`${idRecado}`);
-  tr.remove();
+function modalExcluir(idRecado){
+  document.querySelector(".modais").innerHTML += `
+  <div class="modal fade" id="modal${idRecado}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Deletar lembrete?</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        Caso delete o lembrete, não será possivel recuperá-lo!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button onclick="excluir('recado${idRecado}', '${idRecado}')" type="button" class="btn btn-danger" data-bs-dismiss="modal">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>`
+}
+
+
+
+function excluir(idTrRecado, idRecado) {
+  document.getElementById(idTrRecado).remove()
   const lembrete = JSON.parse(localStorage.getItem("recados"));
   lembretes = lembrete.filter((el) => el.idRecado != idRecado);
+  console.log(lembretes);
   localStorage.setItem("recados", JSON.stringify(lembretes));
+  document.querySelector(`#modal${idRecado}`).remove()
 }
 
 function editar(idRecado) {

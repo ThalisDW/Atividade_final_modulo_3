@@ -18,7 +18,14 @@ function checkUserUnico() {
       confirmSenha.setAttribute("disabled", "true");
     } else if (usuarios.some((el) => el.nome === usuario.value)) {
       usuario.setAttribute("style", "border: 4px solid red");
-      
+      spamUserP.remove()
+      spamUser.innerHTML = `<div class="alert alert-danger mb-1 mt-1 p-0 pe-1 ps-1 m-0" id="spamUserD" role="alert">
+      Nome inválido.
+    </div>`
+      setTimeout(() => {
+        document.querySelector(".alert").remove()
+        spamUser.innerHTML =`<p id="spamUserP" class="m-0">Mínimo 6 caracteres.</p>`
+      }, 4000);
     }else if(usuario.value.length < 6){
       usuario.setAttribute("style", "border: 4px solid red");
       spamUserP.remove()
@@ -29,7 +36,6 @@ function checkUserUnico() {
         document.querySelector(".alert").remove()
         spamUser.innerHTML =`<p id="spamUserP" class="m-0">Mínimo 6 caracteres.</p>`
       }, 4000);
-      
     } else {
       usuario.setAttribute("style", "border: 2px solid #32A428");
       senha.removeAttribute("disabled");
@@ -44,37 +50,28 @@ function checkUserUnico() {
   }
 
 function validarSenha(){
-    
-    
     if (senha.value === "") {
         senha.setAttribute("style", "border: 3px solid #DDB940");
         confirmSenha.setAttribute("disabled", "true");
-        
     }
     else if (senha.value.length >0 && senha.value.length <= 5) {
         senha.setAttribute("style", "border: 4px solid red");
-       
     }else{
-        senha.setAttribute("style", "border: 2px solid #32A428");
-      
+      senha.setAttribute("style", "border: 2px solid #32A428");
       confirmSenha.removeAttribute("disabled");
       document.querySelector("#spamSen").innerHTML="&nbsp";
     }
 }
 
 function validarConfirm(){
-  
-  
   if (confirmSenha.value === senha.value){
     confirmSenha.setAttribute("style", "border: 2px solid #32A428")
     criaUsuario.setAttribute("style", "cursor: pointer")
     criaUsuario.removeAttribute("disabled")
   }else if(confirmSenha.value === ""){
     confirmSenha.setAttribute("style", "border: 3px solid #DDB940");
-    
   }else{
     confirmSenha.setAttribute("style", "border: 4px solid red");
-    
   }
 }
 
