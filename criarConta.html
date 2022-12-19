@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pr-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <title>Meus Lembretes</title>
+  </head>
+  <body class="bodyCriar container-fluid p-0">
+    <div class="row p-0 m-0">
+      <div class="col p-0">
+        <header>
+          <nav id="nave">
+            <h1 id="h1Nav">Lembretes.com</h1>
+          </nav>
+        </header>
+      </div>
+    </div>
+    <div
+      class="row  m-0 " style="height: 92vh;"
+    >
+      <div class="cow-lg-6 p-0" style="height: 100%;">
+        <div class="row m-0 d-flex justify-content-center align-items-center w-100" style="height: 100%;" >
+          <div class="col-lg-4 p-0 d-flex justify-content-center align-items-center" style="height: 100%;">
+            <div class="container d-flex justify-content-center align-items-center" id="containerCriar">
+              <div class="row d-flex justify-content-center align-items-center" id="rowCriar">
+                <div class="col-lg-7 mb-4">
+                  <legend id="entrarSistema">CRIAR CONTA</legend>
+                </div>
+                <div class="col-lg-7 d-flex justify-content-center">
+                  <input
+                        type="text"
+                        name=""
+                       
+                        id="CriaNomeUsuario"
+                        placeholder="Nome de usuário"
+                        required
+                      />
+                </div>
+                <div class="col-lg-7 d-flex justify-content-center" id="spamUser">
+                  <p id="spamUserP" class="m-0">Mínimo 6 caracteres.</p></div>
+
+
+                  <!-- <div class="alert alert-danger mb-1 p-0 pe-1 ps-1 m-0" role="alert">
+                  Nome inválido.
+                </div> -->
+                
+                <div class="col-md-7 d-flex justify-content-center">
+                  <input
+                    type="password"
+                    name=""
+                    id="CriaSenha"
+                    placeholder="Senha"
+                    required
+                    disabled
+                  />
+                </div>
+                <div class="col-lg-7 d-flex justify-content-center"><p id="spamSen" class="m-0">&nbsp</p></div>
+                <div class="col-md-7 mb-4 d-flex justify-content-center">
+                  <input
+                        type="password"
+                        name=""
+                        id="ConfSenha"
+                        placeholder="Confirmar senha"
+                        required
+                        disabled
+                    />
+                </div>
+                <div class="col-md-7 mb-3 d-flex justify-content-center">
+                  <input class="btn p-2" type="button" id="CriarLogin" disabled value="Criar">
+                  
+                </div>
+                <div class="col-md-7 d-flex justify-content-center">
+                  <label for="lougin" id="labelJaPossuiConta"
+                >Já possui uma conta?</label>
+                </div>
+                <div class="col-md-7 d-flex justify-content-center">
+                  <input class="btn btn-primary" type="button" id="lougin" value="Clique aqui">
+                  
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="criarConta.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
